@@ -34,6 +34,7 @@ export class HomePage {
   }
 
   goToRejectedOrders() {
+    // commit testgit
     this.navCtrl.push(RejectedOrdersPage);
   }
 
