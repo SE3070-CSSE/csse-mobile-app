@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ItemServiceProvider } from '../../providers/item-service/item-service';
+import { PurchaseRequestPage } from '../purchase-request/purchase-request';
 
 @Component({
   selector: 'page-home',
@@ -13,11 +14,10 @@ export class HomePage {
   }
 
   ionViewDidEnter() {
-    this.itemService.getItems().then(res => {
-      console.log('home', res);
-    }).catch(err => {
-      console.log(err);
-    })
+  }
+
+  goToPurchaseRequests() {
+    this.navCtrl.push(PurchaseRequestPage);
   }
 
 }
