@@ -20,7 +20,7 @@ export class AuthServiceProvider {
     public storageSerive: StorageServiceProvider,
     public properties: Properties,
     public storageService: StorageServiceProvider
-    ) {
+  ) {
     console.log('Hello AuthServiceProvider Provider');
   }
 
@@ -42,7 +42,7 @@ export class AuthServiceProvider {
             console.log(this.properties.token);
 
             this.storageSerive.saveUser(username, this.properties.token);
-            
+
             resolve(true);
           },
           error => {
@@ -50,6 +50,18 @@ export class AuthServiceProvider {
             reject(false);
           }
         )
+    })
+  }
+
+  loadOfflineUser(): Promise<boolean> {
+    return new Promise((resolve, reject) => {
+      this.storageSerive.getLocalUser().then(token => {
+        this.properties.token = token;
+        resolve(true);
+      }).catch(err => {
+        console.log(err);
+        reject(false);
+      })
     })
   }
 

@@ -14,11 +14,14 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { Properties } from '../shared/properties';
 import { ItemServiceProvider } from '../providers/item-service/item-service';
 
+import { PurchaseRequestPage } from '../pages/purchase-request/purchase-request';
+
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    PurchaseRequestPage
   ],
   imports: [
     BrowserModule,
@@ -29,7 +32,8 @@ import { ItemServiceProvider } from '../providers/item-service/item-service';
   entryComponents: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    PurchaseRequestPage
   ],
   providers: [
     StatusBar,
