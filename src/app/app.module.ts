@@ -12,6 +12,7 @@ import { StorageServiceProvider } from '../providers/storage-service/storage-ser
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 
 import { Properties } from '../shared/properties';
+import { ItemServiceProvider } from '../providers/item-service/item-service';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { Properties } from '../shared/properties';
     AuthServiceProvider,
     HttpClientModule,
     HttpClient,
-    Properties
+    Properties,
+    ItemServiceProvider
   ]
 })
 export class AppModule {}

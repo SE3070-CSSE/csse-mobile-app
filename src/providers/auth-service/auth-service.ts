@@ -15,11 +15,17 @@ import { Properties } from '../../shared/properties';
 @Injectable()
 export class AuthServiceProvider {
 
-  constructor(public http: HttpClient, public storageSerive: StorageServiceProvider, public properties: Properties) {
+  constructor(
+    public http: HttpClient,
+    public storageSerive: StorageServiceProvider,
+    public properties: Properties,
+    public storageService: StorageServiceProvider
+    ) {
     console.log('Hello AuthServiceProvider Provider');
   }
 
   validateUser(payload): Promise<any> {
+    const username = JSON.parse(JSON.stringify(payload)).username;
     console.log('AuthSerivce - Payload', payload);
     return new Promise((resolve, reject) => {
       this.http.post(validateUser, payload, {
@@ -31,7 +37,12 @@ export class AuthServiceProvider {
       })
         .subscribe(
           response => {
-            console.log(response.headers.get('Authorization'));
+            const responseBody = JSON.stringify(response.body);
+            this.properties.token = JSON.parse(responseBody).Authorization;
+            console.log(this.properties.token);
+
+            this.storageSerive.saveUser(username, this.properties.token);
+            
             resolve(true);
           },
           error => {
