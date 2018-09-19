@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { FormControl, FormGroup } from '@angular/forms';
 import { HomePage } from '../home/home';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 /**
  * Generated class for the LoginPage page.
@@ -18,7 +19,13 @@ import { HomePage } from '../home/home';
 export class LoginPage {
   form: FormGroup;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public authService: AuthServiceProvider,
+    public toastCtrl: ToastController
+    ) {
+
     this.form = new FormGroup({
       username: new FormControl(''),
       password: new FormControl('')
@@ -26,12 +33,28 @@ export class LoginPage {
     });
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+  login() {
+    const authModel = {
+      username: this.form.value.username,
+      password: this.form.value.password
+    }
+
+    this.authService.validateUser(authModel).then(res => {
+      this.navCtrl.setRoot(HomePage);
+    }).catch(error => {
+      this.presentToast(error);
+    })
+
   }
 
-  login() {
-    this.navCtrl.setRoot(HomePage);
+  presentToast(message) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: 3000,
+      position: 'bottom'
+    });
+
+    toast.present();
   }
 
 }
