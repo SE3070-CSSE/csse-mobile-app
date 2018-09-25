@@ -15,11 +15,30 @@
 
 <ion-content padding>
 
-  <ion-item>
-    <ion-label>Item</ion-label>
-    <ion-select [(ngModel)]="item">
-      <ion-option *ngFor="let item of items" [value]="item._id">{{ item.itemName }}</ion-option>
-    </ion-select>
-  </ion-item>
+  <ion-card>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>Item</ion-label>
+        <ion-select [(ngModel)]="item">
+          <ion-option *ngFor="let item of items" [value]="item">{{ item.itemName }}</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Quantity</ion-label>
+        <ion-input type="number" [(ngModel)]="quantity"></ion-input>
+      </ion-item>
+
+      <button full ion-button (click)="addRequestItems(item, quantity)">Add</button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list>
+    <ion-item *ngFor="let requestItem of requestItems">{{ requestItem.item.itemName }} - {{ requestItem.quantity }}</ion-item>
+  </ion-list>
 
 </ion-content>
+
+<ion-footer>
+  <button right ion-button (click)="proceedToPurchaseRequest()">Proceed</button>
+</ion-footer>

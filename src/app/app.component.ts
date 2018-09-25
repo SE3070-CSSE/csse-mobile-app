@@ -6,6 +6,7 @@ import { SplashScreen } from "@ionic-native/splash-screen";
 import { HomePage } from "../pages/home/home";
 import { LoginPage } from "../pages/login/login";
 import { AuthServiceProvider } from "../providers/auth-service/auth-service";
+import { PurchaseRequestPage } from "../pages/purchase-request/purchase-request";
 @Component({
   templateUrl: "app.html"
 })
@@ -24,6 +25,7 @@ export class MyApp {
 
       this.authService.loadOfflineUser().then(res => {
         this.rootPage = HomePage;
+        // this.rootPage = PurchaseRequestPage;
       }).catch(err => {
         this.rootPage = LoginPage;
       })

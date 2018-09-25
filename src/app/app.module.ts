@@ -15,13 +15,18 @@ import { Properties } from '../shared/properties';
 import { ItemServiceProvider } from '../providers/item-service/item-service';
 
 import { PurchaseRequestPage } from '../pages/purchase-request/purchase-request';
+import { PurchaseRequestProceedPage } from '../pages/purchase-request-proceed/purchase-request-proceed';
+import { PurchaseRequestServiceProvider } from '../providers/purchase-request-service/purchase-request-service';
+import { ViewPurchaseRequestsPage } from '../pages/view-purchase-requests/view-purchase-requests';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     LoginPage,
-    PurchaseRequestPage
+    PurchaseRequestPage,
+    PurchaseRequestProceedPage,
+    ViewPurchaseRequestsPage
   ],
   imports: [
     BrowserModule,
@@ -33,7 +38,9 @@ import { PurchaseRequestPage } from '../pages/purchase-request/purchase-request'
     MyApp,
     HomePage,
     LoginPage,
-    PurchaseRequestPage
+    PurchaseRequestPage,
+    PurchaseRequestProceedPage,
+    ViewPurchaseRequestsPage
   ],
   providers: [
     StatusBar,
@@ -44,7 +51,8 @@ import { PurchaseRequestPage } from '../pages/purchase-request/purchase-request'
     HttpClientModule,
     HttpClient,
     Properties,
-    ItemServiceProvider
+    ItemServiceProvider,
+    PurchaseRequestServiceProvider
   ]
 })
 export class AppModule {}

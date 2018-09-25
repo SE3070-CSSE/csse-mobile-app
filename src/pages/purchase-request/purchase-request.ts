@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams, Item } from "ionic-angular";
 import { ItemServiceProvider } from "../../providers/item-service/item-service";
+import { PurchaseRequestProceedPage } from "../purchase-request-proceed/purchase-request-proceed";
 
 /**
  * Generated class for the PurchaseRequestPage page.
@@ -16,6 +17,7 @@ import { ItemServiceProvider } from "../../providers/item-service/item-service";
 })
 export class PurchaseRequestPage {
   items: any;
+  requestItems: Array<{item: any, quantity: number}> = [];
 
   constructor(
     public navCtrl: NavController,
@@ -27,8 +29,16 @@ export class PurchaseRequestPage {
     this.itemService.getItems().then(res => {
       this.items = res;
     });
-
     console.log(this.items);
-    
+  }
+
+  addRequestItems(item, quantity) {
+    this.requestItems.push({item, quantity});
+    console.log(this.requestItems);
+  }
+
+  proceedToPurchaseRequest() {
+    console.log('proceedToPurchaseRequest', this.requestItems);
+    this.navCtrl.push(PurchaseRequestProceedPage, {items: this.requestItems});
   }
 }

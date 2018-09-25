@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-import { items } from '../../shared/config';
+import { itemsEndPoint } from '../../shared/config';
 import { Observable } from 'rxjs/Observable';
 import { Properties } from '../../shared/properties';
 
@@ -13,13 +13,14 @@ import { Properties } from '../../shared/properties';
 */
 @Injectable()
 export class ItemServiceProvider {
-  private itemUrl = items;
+  private itemUrl = itemsEndPoint;
 
   constructor(public http: HttpClient, public properties: Properties) {
     console.log('Hello ItemServiceProvider Provider');
   }
 
   getItems(): Promise<any> {
+    console.log(this.properties.token);
     return new Promise((resolve, reject) => {
       this.http.get(this.itemUrl, {
         observe: 'response',
