@@ -28,7 +28,8 @@ export class PurchaseRequestProceedPage {
     public navParams: NavParams,
     private purchaseRequestService: PurchaseRequestServiceProvider
   ) {
-    this.formatRequestItems(this.navParams.get("items"));
+    // this.formatRequestItems(this.navParams.get("items"));
+    this.items = this.navParams.get("items");
   }
 
   ionViewDidLoad() {
@@ -49,7 +50,7 @@ export class PurchaseRequestProceedPage {
     };
     
     // console.log(JSON.parse(this.purchaseRequest));
-    // console.log(this.purchaseRequest);
+    console.log(this.purchaseRequest);
     
 
     this.purchaseRequestService.postRequest(this.purchaseRequest).then(res => {
@@ -61,7 +62,8 @@ export class PurchaseRequestProceedPage {
 
   formatRequestItems(requestItems) {
     requestItems.forEach(element => {
-      this.items.push({itemName: element.item.itemName, quantity: element.quantity});
+      console.log('format', element);
+      this.items.push({item: element.item._id, quantity: element.quantity, POCreated: false});
     });
   }
 
