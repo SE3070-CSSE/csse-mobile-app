@@ -14,7 +14,7 @@
 
 
 <ion-content padding>
-  <ion-item>
+  <!-- <ion-item>
     <ion-input [(ngModel)]="requestedBy" placeholder="Name"></ion-input>
   </ion-item>
 
@@ -27,5 +27,24 @@
     <ion-textarea [(ngModel)]="deliveryAddress" placeholder="Delivery Address"></ion-textarea>
   </ion-item>
 
-  <button ion-button full (click)="requestPurchase()">Request Purchase</button>
+  <button ion-button full (click)="requestPurchase()">Request Purchase</button> -->
+
+  <form [formGroup]="purchaseRequest" (ngSubmit)="requestPurchase()">
+    <ion-item>
+      <ion-label>Request By</ion-label>
+      <ion-input formControlName="requestedBy" name="requestedBy"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Date</ion-label>
+      <ion-datetime displayFormat="YYYY-MM-DD" formControlName="neededOn" name="neededOn"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Delivert Address</ion-label>
+      <ion-textarea formControlName="deliveryAddress" name="deliveryAddress"></ion-textarea>
+    </ion-item>
+
+    <button ion-button full type="submit" [disabled]="!purchaseRequest.valid">Request</button>
+  </form>
 </ion-content>
