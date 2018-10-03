@@ -16,29 +16,39 @@
 <ion-content padding>
 
   <ion-card>
-    <ion-card-content>
+    <form [formGroup]="requestItem" (ngSubmit)="addRequestItems()">
       <ion-item>
         <ion-label>Item</ion-label>
-        <ion-select [(ngModel)]="item">
+        <ion-select formControlName="item" name="itemObj">
           <ion-option *ngFor="let item of items" [value]="item">{{ item.itemName }}</ion-option>
         </ion-select>
       </ion-item>
 
       <ion-item>
         <ion-label>Quantity</ion-label>
-        <ion-input type="number" [(ngModel)]="quantity"></ion-input>
+        <ion-input type="number" formControlName="quantity" name="quantity"></ion-input>
       </ion-item>
 
-      <button full ion-button (click)="addRequestItems(item, quantity)">Add</button>
-    </ion-card-content>
+      <button ion-button full type="submit" [disabled]="!requestItem.valid" block>Add</button>
+    </form>
   </ion-card>
 
   <ion-list>
-    <ion-item *ngFor="let requestItem of requestItems">{{ requestItem.item.itemName }} - {{ requestItem.quantity }}</ion-item>
+    <ion-item *ngFor="let requestItem of requestItems; let i = index">
+      <div item-start>
+        <span>
+          {{ requestItem.item.itemName }}
+        </span>
+        <p>
+          Quantity: {{ requestItem.quantity }}
+        </p>
+      </div>
+      <ion-icon name="trash" (click)="removeItem(i)" item-end></ion-icon>
+    </ion-item>
   </ion-list>
 
 </ion-content>
 
 <ion-footer>
-  <button right ion-button (click)="proceedToPurchaseRequest()">Proceed</button>
+  <button ion-button full (click)="proceedToPurchaseRequest()">Proceed</button>
 </ion-footer>

@@ -1,5 +1,5 @@
-// const backend = 'https://csse-backend.herokuapp.com/';
-const backend = 'http://localhost:8080/';
+const backend = 'https://csse-backend.herokuapp.com/';
+// const backend = 'http://localhost:8080/';
 
 // export const validateUser = backend + '/login';
 export const validateUserEndPoint = backend + 'login';
