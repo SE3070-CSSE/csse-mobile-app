@@ -18,11 +18,19 @@
   <ion-list>
     <ion-item *ngFor="let order of orders">
       <h3>{{ order.status }}</h3>
-      <!-- <p>Created On: {{ request.createdOn | date }}</p>
-      <p>Needed On: {{ request.neededOn | date }}</p>
-      <p>Delivered To: {{ request.deliveryAddress }}</p> -->
+      <!-- <p>Created On: {{ order.createdOn | date }}</p> -->
+      <p>Total Price: {{ order.totalPrice }}</p>
+      <p>Supplier: {{ order.supplier.supplierName }}</p>
+      <ion-list>
+        <ion-item *ngFor="let orderItem of order.orderItems">
+          <span>
+            {{ orderItem.item.itemName }}
+          </span>
+          <p>Quantity: {{ orderItem.quantity }}</p>
+        </ion-item>
+      </ion-list>
       <!-- <p>RequestedBy {{  }}</p> -->
-      <button ion-button (click)="viewRequestDetails(request)">View Details</button>
+      <button ion-button (click)="viewRequestDetails(request)">Create GRN</button>
     </ion-item>
   </ion-list>
 
