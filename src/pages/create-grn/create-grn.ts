@@ -17,6 +17,7 @@ export class CreateGrnPage {
   private purchaseOrder: any;
   private deliveredItems: any[] = [];
   private purchaseOrderItems: any[] = [];
+  // private purchaseOrderItems: {item: string, orderLinePrice: string, quantity: string, received: boolean, ordered: boolean}[] = [];
   private total: number = 0;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
@@ -29,40 +30,47 @@ export class CreateGrnPage {
     console.log(this.purchaseOrderItems);
   }
 
-  changeDeliveredItems(item) {
-    const price = item.orderLinePrice;
-    const checkedItem = {
-      item: item.item,
-      quantity: item.quantity
-    }
-
-    let index = this.purchaseOrderItems.findIndex(elem => {
-      return elem === item;
-    });
-
-    if (this.deliveredItems.indexOf(checkedItem) === -1) {
-      this.deliveredItems.push(checkedItem);
-      this.purchaseOrderItems[index].received = true;
-    } else {
-      this.deliveredItems.splice(this.deliveredItems.indexOf(checkedItem), 1);
-      this.purchaseOrderItems[index].received = false;
-    }
-
-    this.total = this.total + price;
-
-    this.deliveredItems.forEach(elem => {
-      delete elem.orderLinePrice;
-      delete elem.received;
-    });
-
-    console.log(this.deliveredItems);
-    console.log(this.purchaseOrderItems);
+  changeDeliveredItems() {
+    // const price = item.orderLinePrice;
+    // const checkedItem = {
+    //   item: item.item,
+    //   quantity: item.quantity
+    // }
+    // let index = this.purchaseOrderItems.findIndex(elem => {
+    //   return elem === item;
+    // });
+    // if (this.deliveredItems.indexOf(checkedItem) === -1 && item.ordered) {
+    //   this.deliveredItems.push(checkedItem);
+    //   this.purchaseOrderItems[index].received = true;
+    // } else {
+    //   this.deliveredItems.splice(this.deliveredItems.indexOf(checkedItem), 1);
+    //   this.purchaseOrderItems[index].received = false;
+    // }
+    // this.total = this.total + price;
+    // this.deliveredItems.forEach(elem => {
+    //   delete elem.orderLinePrice;
+    //   delete elem.received;
+    // });
+    // console.log(this.deliveredItems);
+    // console.log(this.purchaseOrderItems);
   }
 
   createGRN() {
+    this.deliveredItems = [];
+  
+    this.purchaseOrder.orderItems.forEach(item => {
+      if(item.received) {
+        const checkedItem = {
+          item: item.item,
+          quantity: item.quantity
+        }
+        this.deliveredItems.push(checkedItem);
+        this.total = this.total + item.orderLinePrice;
+      }
+    });
+
     const orderItems = this.purchaseOrderItems;
     this.purchaseOrder.orderItems = orderItems;
-
     // this.deliveredItems.forEach(elem => {
     //   delete elem.orderLinePrice;
     //   delete elem.received;
