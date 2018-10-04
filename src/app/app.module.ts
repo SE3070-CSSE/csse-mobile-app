@@ -20,6 +20,8 @@ import { PurchaseRequestServiceProvider } from '../providers/purchase-request-se
 import { ViewPurchaseRequestsPage } from '../pages/view-purchase-requests/view-purchase-requests';
 import { ViewOrdersPage } from '../pages/view-orders/view-orders';
 import { OrderServiceProvider } from '../providers/order-service/order-service';
+import { CreateGrnPage } from '../pages/create-grn/create-grn';
+import { GrnServiceProvider } from '../providers/grn-service/grn-service';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { OrderServiceProvider } from '../providers/order-service/order-service';
     PurchaseRequestPage,
     PurchaseRequestProceedPage,
     ViewPurchaseRequestsPage,
-    ViewOrdersPage
+    ViewOrdersPage,
+    CreateGrnPage
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,8 @@ import { OrderServiceProvider } from '../providers/order-service/order-service';
     PurchaseRequestPage,
     PurchaseRequestProceedPage,
     ViewPurchaseRequestsPage,
-    ViewOrdersPage
+    ViewOrdersPage,
+    CreateGrnPage
   ],
   providers: [
     StatusBar,
@@ -57,7 +61,8 @@ import { OrderServiceProvider } from '../providers/order-service/order-service';
     Properties,
     ItemServiceProvider,
     PurchaseRequestServiceProvider,
-    OrderServiceProvider
+    OrderServiceProvider,
+    GrnServiceProvider
   ]
 })
 export class AppModule {}

@@ -21,16 +21,8 @@
       <!-- <p>Created On: {{ order.createdOn | date }}</p> -->
       <p>Total Price: {{ order.totalPrice }}</p>
       <p>Supplier: {{ order.supplier.supplierName }}</p>
-      <ion-list>
-        <ion-item *ngFor="let orderItem of order.orderItems">
-          <span>
-            {{ orderItem.item.itemName }}
-          </span>
-          <p>Quantity: {{ orderItem.quantity }}</p>
-        </ion-item>
-      </ion-list>
       <!-- <p>RequestedBy {{  }}</p> -->
-      <button ion-button (click)="viewRequestDetails(request)">Create GRN</button>
+      <button ion-button (click)="goToAcceptItems(order)">Accept Items</button>
     </ion-item>
   </ion-list>
 

@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { NavController, NavParams } from "ionic-angular";
 import { OrderServiceProvider } from "../../providers/order-service/order-service";
+import { CreateGrnPage } from "../create-grn/create-grn";
 
 /**
  * Generated class for the ViewOrdersPage page.
@@ -28,5 +29,9 @@ export class ViewOrdersPage {
       console.log(res);
       this.orders = res;
     })
+  }
+
+  goToAcceptItems(purchaseOrder) {
+    this.navCtrl.push(CreateGrnPage, { purchaseOrder: purchaseOrder });
   }
 }
