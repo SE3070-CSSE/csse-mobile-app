@@ -18,6 +18,8 @@ import { PurchaseRequestPage } from '../pages/purchase-request/purchase-request'
 import { PurchaseRequestProceedPage } from '../pages/purchase-request-proceed/purchase-request-proceed';
 import { PurchaseRequestServiceProvider } from '../providers/purchase-request-service/purchase-request-service';
 import { ViewPurchaseRequestsPage } from '../pages/view-purchase-requests/view-purchase-requests';
+import { ViewOrdersPage } from '../pages/view-orders/view-orders';
+import { OrderServiceProvider } from '../providers/order-service/order-service';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { ViewPurchaseRequestsPage } from '../pages/view-purchase-requests/view-p
     LoginPage,
     PurchaseRequestPage,
     PurchaseRequestProceedPage,
-    ViewPurchaseRequestsPage
+    ViewPurchaseRequestsPage,
+    ViewOrdersPage
   ],
   imports: [
     BrowserModule,
@@ -40,7 +43,8 @@ import { ViewPurchaseRequestsPage } from '../pages/view-purchase-requests/view-p
     LoginPage,
     PurchaseRequestPage,
     PurchaseRequestProceedPage,
-    ViewPurchaseRequestsPage
+    ViewPurchaseRequestsPage,
+    ViewOrdersPage
   ],
   providers: [
     StatusBar,
@@ -52,7 +56,8 @@ import { ViewPurchaseRequestsPage } from '../pages/view-purchase-requests/view-p
     HttpClient,
     Properties,
     ItemServiceProvider,
-    PurchaseRequestServiceProvider
+    PurchaseRequestServiceProvider,
+    OrderServiceProvider
   ]
 })
 export class AppModule {}

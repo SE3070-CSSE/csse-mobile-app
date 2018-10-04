@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { ItemServiceProvider } from '../../providers/item-service/item-service';
 import { PurchaseRequestPage } from '../purchase-request/purchase-request';
 import { ViewPurchaseRequestsPage } from '../view-purchase-requests/view-purchase-requests';
+import { ViewOrdersPage } from '../view-orders/view-orders';
 
 @Component({
   selector: 'page-home',
@@ -23,6 +24,10 @@ export class HomePage {
 
   goToViewPurchaseRequests() {
     this.navCtrl.push(ViewPurchaseRequestsPage);
+  }
+
+  goToViewOrders() {
+    this.navCtrl.push(ViewOrdersPage);
   }
 
 }

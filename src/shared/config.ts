@@ -5,3 +5,4 @@ const backend = 'https://csse-backend.herokuapp.com/';
 export const validateUserEndPoint = backend + 'login';
 export const itemsEndPoint = backend + 'items';
 export const requestsEndPoint = backend + 'requests';
+export const ordersEndPoint = backend + 'orders';
