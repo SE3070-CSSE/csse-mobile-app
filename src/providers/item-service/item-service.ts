@@ -2,7 +2,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { itemsEndPoint } from '../../shared/config';
-import { Observable } from 'rxjs/Observable';
 import { Properties } from '../../shared/properties';
 
 /*

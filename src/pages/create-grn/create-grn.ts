@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
-import { NavController, NavParams } from "ionic-angular";
+import { NavController, NavParams, AlertController, ToastController } from "ionic-angular";
 import * as moment from "moment";
+import { GrnServiceProvider } from "../../providers/grn-service/grn-service";
 
 /**
  * Generated class for the CreateGrnPage page.
@@ -20,9 +21,15 @@ export class CreateGrnPage {
   // private purchaseOrderItems: {item: string, orderLinePrice: string, quantity: string, received: boolean, ordered: boolean}[] = [];
   private total: number = 0;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private alertCtrl: AlertController,
+    private GrnService: GrnServiceProvider,
+    private toastCtrl: ToastController
+  ) {
     this.purchaseOrder = this.navParams.get("purchaseOrder");
-    this.purchaseOrderItems = this.purchaseOrder.orderItems;
+    this.purchaseOrderItems = this.processItems(this.purchaseOrder.orderItems);
   }
 
   ionViewDidLoad() {
@@ -30,60 +37,85 @@ export class CreateGrnPage {
     console.log(this.purchaseOrderItems);
   }
 
-  changeDeliveredItems() {
-    // const price = item.orderLinePrice;
-    // const checkedItem = {
-    //   item: item.item,
-    //   quantity: item.quantity
-    // }
-    // let index = this.purchaseOrderItems.findIndex(elem => {
-    //   return elem === item;
-    // });
-    // if (this.deliveredItems.indexOf(checkedItem) === -1 && item.ordered) {
-    //   this.deliveredItems.push(checkedItem);
-    //   this.purchaseOrderItems[index].received = true;
-    // } else {
-    //   this.deliveredItems.splice(this.deliveredItems.indexOf(checkedItem), 1);
-    //   this.purchaseOrderItems[index].received = false;
-    // }
-    // this.total = this.total + price;
-    // this.deliveredItems.forEach(elem => {
-    //   delete elem.orderLinePrice;
-    //   delete elem.received;
-    // });
-    // console.log(this.deliveredItems);
-    // console.log(this.purchaseOrderItems);
+  processItems(items: any[]) {
+    items.forEach(elem => {
+      if (!elem.received) {
+        elem.checked = false;
+      }
+    });
+    return items;
   }
 
   createGRN() {
     this.deliveredItems = [];
-  
+
+    let checked: boolean = false;
+
     this.purchaseOrder.orderItems.forEach(item => {
-      if(item.received) {
+      if (item.checked) {
+        checked = true;
         const checkedItem = {
           item: item.item,
           quantity: item.quantity
-        }
+        };
         this.deliveredItems.push(checkedItem);
         this.total = this.total + item.orderLinePrice;
       }
     });
 
-    const orderItems = this.purchaseOrderItems;
-    this.purchaseOrder.orderItems = orderItems;
-    // this.deliveredItems.forEach(elem => {
-    //   delete elem.orderLinePrice;
-    //   delete elem.received;
-    // });
+    if (checked) {
+      this.purchaseOrderItems.forEach(elem => {
+        if (elem.checked) {
+          elem.received = true;
+        }
+        delete elem.checked;
+      });
+      const orderItems = this.purchaseOrderItems;
+      this.purchaseOrder.orderItems = orderItems;
 
-    const GRN = {
-      purchaseOrder: this.purchaseOrder,
-      supplier: this.purchaseOrder.supplier,
-      recievedOn: moment().format("YYYY-MM-DD"),
-      orderItems: this.deliveredItems,
-      totalPrice: this.total
-    };
+      const GRN = {
+        purchaseOrder: this.purchaseOrder,
+        supplier: this.purchaseOrder.supplier,
+        recievedOn: moment().format("YYYY-MM-DD"),
+        orderItems: this.deliveredItems,
+        totalPrice: this.total
+      };
 
-    console.log(GRN);
+      this.GrnService.postGRN(GRN).then(res => {
+        console.log(res);
+        this.presentToast('GRN Created Successfully');
+      }).catch(err => {
+        console.log(err);
+        this.presentToast(err);
+        this.processItems(this.purchaseOrderItems);
+      });
+
+      console.log(GRN);
+    } else {
+      this.presentAlert();
+    }
+  }
+
+  presentAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Error',
+      subTitle: 'Can not create GRN without selecting at least one item',
+      buttons: ['Okay']
+    });
+    alert.present();
+  }
+
+  presentToast(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 3000,
+      position: 'bottom'
+    });
+  
+    toast.onDidDismiss(() => {
+      console.log('Dismissed toast');
+    });
+  
+    toast.present();
   }
 }

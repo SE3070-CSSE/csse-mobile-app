@@ -21,7 +21,7 @@
       <div ion-item>
         Quantity: {{ item.quantity }}
       </div>
-      <ion-checkbox [(ngModel)]="item.received"></ion-checkbox>
+      <ion-checkbox [(ngModel)]="item.checked" [disabled]="item.received"></ion-checkbox>
     </ion-item>
   </ion-list>
   <ion-footer>
