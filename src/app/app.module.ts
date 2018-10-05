@@ -22,6 +22,7 @@ import { ViewOrdersPage } from '../pages/view-orders/view-orders';
 import { OrderServiceProvider } from '../providers/order-service/order-service';
 import { CreateGrnPage } from '../pages/create-grn/create-grn';
 import { GrnServiceProvider } from '../providers/grn-service/grn-service';
+import { ViewRequestDetailsPage } from '../pages/view-request-details/view-request-details';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { GrnServiceProvider } from '../providers/grn-service/grn-service';
     PurchaseRequestProceedPage,
     ViewPurchaseRequestsPage,
     ViewOrdersPage,
-    CreateGrnPage
+    CreateGrnPage,
+    ViewRequestDetailsPage
   ],
   imports: [
     BrowserModule,
@@ -48,7 +50,8 @@ import { GrnServiceProvider } from '../providers/grn-service/grn-service';
     PurchaseRequestProceedPage,
     ViewPurchaseRequestsPage,
     ViewOrdersPage,
-    CreateGrnPage
+    CreateGrnPage,
+    ViewRequestDetailsPage
   ],
   providers: [
     StatusBar,
