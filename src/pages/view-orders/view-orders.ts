@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { NavController, NavParams } from "ionic-angular";
+import { NavController, NavParams, LoadingController } from "ionic-angular";
 import { OrderServiceProvider } from "../../providers/order-service/order-service";
 import { CreateGrnPage } from "../create-grn/create-grn";
 
@@ -16,11 +16,13 @@ import { CreateGrnPage } from "../create-grn/create-grn";
 })
 export class ViewOrdersPage {
   private orders: any;
+  private loading;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private orderService: OrderServiceProvider
+    private orderService: OrderServiceProvider,
+    private loadingCtrl: LoadingController
   ) {}
 
   ionViewDidLoad() {
@@ -32,15 +34,32 @@ export class ViewOrdersPage {
   }
 
   ionViewDidEnter() {
+    this.presentLoadingDefault();
     this.orders = [];
     console.log("ionViewDidLoad ViewOrdersPage");
     this.orderService.getOrders().then(res => {
+      this.dismissLoading();
       console.log(res);
       this.orders = res;
+    }).catch(err => {
+      this.dismissLoading();
     });
   }
 
   goToAcceptItems(purchaseOrder) {
     this.navCtrl.push(CreateGrnPage, { purchaseOrder: purchaseOrder });
   }
+
+  presentLoadingDefault() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+  
+    this.loading.present();
+  }
+
+  dismissLoading() {
+    this.loading.dismiss();
+  }
+
 }

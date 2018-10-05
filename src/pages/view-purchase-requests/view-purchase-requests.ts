@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { IonicPage, NavController, NavParams, LoadingController } from "ionic-angular";
 import { PurchaseRequestServiceProvider } from "../../providers/purchase-request-service/purchase-request-service";
 
 /**
@@ -14,15 +14,19 @@ import { PurchaseRequestServiceProvider } from "../../providers/purchase-request
 })
 export class ViewPurchaseRequestsPage {
   requests: any[];
+  private loading;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private purchaseRequestService: PurchaseRequestServiceProvider
+    private purchaseRequestService: PurchaseRequestServiceProvider,
+    private loadingCtrl: LoadingController
   ) {}
 
   ionViewDidEnter() {
+    this.presentLoadingDefault();
     this.purchaseRequestService.getRequests().then(res => {
+      this.dismissLoading();
       console.log(res);
       this.requests = res;
       this.requests.sort();
@@ -37,5 +41,17 @@ export class ViewPurchaseRequestsPage {
 
   viewRequestDetails(request) {
     console.log(request);
+  }
+
+  presentLoadingDefault() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+  
+    this.loading.present();
+  }
+
+  dismissLoading() {
+    this.loading.dismiss();
   }
 }

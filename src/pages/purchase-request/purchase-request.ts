@@ -4,7 +4,8 @@ import {
   NavController,
   NavParams,
   Item,
-  AlertController
+  AlertController,
+  LoadingController
 } from "ionic-angular";
 import { ItemServiceProvider } from "../../providers/item-service/item-service";
 import { PurchaseRequestProceedPage } from "../purchase-request-proceed/purchase-request-proceed";
@@ -26,13 +27,15 @@ export class PurchaseRequestPage {
   items: any;
   private requestItem: FormGroup;
   requestItems: Array<{ item: any; quantity: number }> = [];
+  private loading;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public itemService: ItemServiceProvider,
     private formBuilder: FormBuilder,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private loadingCtrl: LoadingController
   ) {
     this.requestItem = this.formBuilder.group({
       item: ["", Validators.required],
@@ -41,7 +44,9 @@ export class PurchaseRequestPage {
   }
 
   ionViewDidLoad() {
+    this.presentLoadingDefault();
     this.itemService.getItems().then(res => {
+      this.dismissLoading();
       this.items = res;
     });
     console.log(this.items);
@@ -77,5 +82,17 @@ export class PurchaseRequestPage {
       buttons: ["Dismiss"]
     });
     alert.present();
+  }
+
+  presentLoadingDefault() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+  
+    this.loading.present();
+  }
+
+  dismissLoading() {
+    this.loading.dismiss();
   }
 }
