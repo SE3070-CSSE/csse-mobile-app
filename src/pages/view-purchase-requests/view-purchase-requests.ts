@@ -8,14 +8,12 @@ import { PurchaseRequestServiceProvider } from "../../providers/purchase-request
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
  */
-
-@IonicPage()
 @Component({
   selector: "page-view-purchase-requests",
   templateUrl: "view-purchase-requests.html"
 })
 export class ViewPurchaseRequestsPage {
-  requests: any;
+  requests: any[];
 
   constructor(
     public navCtrl: NavController,
@@ -27,6 +25,7 @@ export class ViewPurchaseRequestsPage {
     this.purchaseRequestService.getRequests().then(res => {
       console.log(res);
       this.requests = res;
+      this.requests.sort();
     }).catch(err => {
       console.log(err);
     });

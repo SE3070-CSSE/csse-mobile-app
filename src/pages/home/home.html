@@ -1,13 +1,72 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Procurement Management System
     </ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <button full ion-button (click)="goToPurchaseRequests()">Request</button>
-  <button full ion-button (click)="goToViewPurchaseRequests()">View Requests</button>
-  <button full ion-button (click)="goToViewOrders()">View Orders</button>
+  <ion-list no-lines>
+    <ion-item class="button-list">
+      <button class="home-button" ion-button (click)="goToPurchaseRequests()">
+        <ion-grid>
+          <ion-row align-items-center>
+            <ion-col>
+              <img src="../../assets/imgs/001-file-1.png">
+            </ion-col>
+          </ion-row>
+          <ion-row justify-content-start>
+            <ion-col>
+              Request
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </button>
+    </ion-item>
+    <ion-item>
+      <button class="home-button" ion-button (click)="goToViewPurchaseRequests()">
+        <ion-grid>
+          <ion-row align-items-center>
+            <ion-col>
+              <img src="../../assets/imgs/004-file.png">
+            </ion-col>
+          </ion-row>
+          <ion-row justify-content-start>
+            <ion-col>
+              View Request
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </button>
+    </ion-item>
+    <ion-item>
+      <button class="home-button" ion-button (click)="goToViewOrders()">
+        <ion-grid>
+          <ion-row align-items-center>
+            <ion-col>
+              <img src="../../assets/imgs/notepad.png">
+            </ion-col>
+          </ion-row>
+          <ion-row justify-content-start>
+            <ion-col>
+              View Orders
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </button>
+    </ion-item>
+  </ion-list>
 </ion-content>
+
+<ion-footer>
+  <ion-grid>
+    <ion-row align-items-center>
+      <ion-col>
+          <button ion-button full class="logout-button">
+              Logout
+            </button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-footer>

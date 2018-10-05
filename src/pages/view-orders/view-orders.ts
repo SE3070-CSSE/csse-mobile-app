@@ -25,10 +25,19 @@ export class ViewOrdersPage {
 
   ionViewDidLoad() {
     console.log("ionViewDidLoad ViewOrdersPage");
+    // this.orderService.getOrders().then(res => {
+    //   console.log(res);
+    //   this.orders = res;
+    // })
+  }
+
+  ionViewDidEnter() {
+    this.orders = [];
+    console.log("ionViewDidLoad ViewOrdersPage");
     this.orderService.getOrders().then(res => {
       console.log(res);
       this.orders = res;
-    })
+    });
   }
 
   goToAcceptItems(purchaseOrder) {

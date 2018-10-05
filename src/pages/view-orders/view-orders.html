@@ -22,7 +22,8 @@
       <p>Total Price: {{ order.totalPrice }}</p>
       <p>Supplier: {{ order.supplier.supplierName }}</p>
       <!-- <p>RequestedBy {{  }}</p> -->
-      <button ion-button (click)="goToAcceptItems(order)">Accept Items</button>
+      <button *ngIf="order.status !== 'DELIVERY_COMPLETED'" ion-button (click)="goToAcceptItems(order)">Accept Items</button>
+
     </ion-item>
   </ion-list>
 
