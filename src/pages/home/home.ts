@@ -4,6 +4,7 @@ import { ItemServiceProvider } from '../../providers/item-service/item-service';
 import { PurchaseRequestPage } from '../purchase-request/purchase-request';
 import { ViewPurchaseRequestsPage } from '../view-purchase-requests/view-purchase-requests';
 import { ViewOrdersPage } from '../view-orders/view-orders';
+import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-home',
@@ -28,6 +29,10 @@ export class HomePage {
 
   goToViewOrders() {
     this.navCtrl.push(ViewOrdersPage);
+  }
+
+  logout() {
+    this.navCtrl.setRoot(LoginPage);
   }
 
 }
