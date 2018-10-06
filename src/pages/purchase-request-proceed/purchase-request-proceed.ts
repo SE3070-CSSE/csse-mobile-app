@@ -76,6 +76,7 @@ export class PurchaseRequestProceedPage {
       this.navCtrl.setRoot(HomePage);
       console.log(res);
     }).catch(err => {
+      this.dismissLoading();
       console.log(err);
     })
   }

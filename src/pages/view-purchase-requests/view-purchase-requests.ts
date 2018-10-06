@@ -38,6 +38,7 @@
           this.requests.sort();
         })
         .catch(err => {
+          this.dismissLoading();
           console.log(err);
         });
     }

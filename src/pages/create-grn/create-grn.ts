@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { NavController, NavParams, AlertController, ToastController } from "ionic-angular";
+import { NavController, NavParams, AlertController, ToastController, LoadingController } from "ionic-angular";
 import * as moment from "moment";
 import { GrnServiceProvider } from "../../providers/grn-service/grn-service";
 
@@ -20,13 +20,15 @@ export class CreateGrnPage {
   private purchaseOrderItems: any[] = [];
   // private purchaseOrderItems: {item: string, orderLinePrice: string, quantity: string, received: boolean, ordered: boolean}[] = [];
   private total: number = 0;
+  private loading;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private alertCtrl: AlertController,
     private GrnService: GrnServiceProvider,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private loadingCtrl: LoadingController
   ) {
     this.purchaseOrder = this.navParams.get("purchaseOrder");
     this.purchaseOrderItems = this.processItems(this.purchaseOrder.orderItems);
@@ -81,10 +83,13 @@ export class CreateGrnPage {
         totalPrice: this.total
       };
 
+      this.presentLoadingDefault();
       this.GrnService.postGRN(GRN).then(res => {
+        this.dismissLoading();
         console.log(res);
         this.presentToast('GRN Created Successfully');
       }).catch(err => {
+        this.dismissLoading();
         console.log(err);
         this.presentToast(err);
         this.processItems(this.purchaseOrderItems);
@@ -117,5 +122,17 @@ export class CreateGrnPage {
     });
   
     toast.present();
+  }
+
+  presentLoadingDefault() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+  
+    this.loading.present();
+  }
+
+  dismissLoading() {
+    this.loading.dismiss();
   }
 }

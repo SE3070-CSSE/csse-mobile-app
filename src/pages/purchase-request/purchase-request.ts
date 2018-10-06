@@ -48,6 +48,8 @@ export class PurchaseRequestPage {
     this.itemService.getItems().then(res => {
       this.dismissLoading();
       this.items = res;
+    }).catch(err => {
+      this.dismissLoading();
     });
     console.log(this.items);
   }
